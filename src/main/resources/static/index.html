@@ -7,14 +7,35 @@
     <script>
         var testdb1 = function() {
             console.log('testdb1');
+            let str = '';
+            for(let i=0 ; i<10 ; ++i) {
+                str += String.fromCharCode(Math.floor(Math.random()*26)+97);
+            }
+            $.ajax({
+                url: 'api/testdb1',
+                data: 'str=' + str,
+                beforeSend: function(data) {
+                    $('#input1').text(str);
+                },
+                success: function(data) {
+                    $('#output1').text(data);
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    console.log(textStatus);
+                }
+            });
         }
     </script>
 </head>
 
 <body>
     <h1>Vault Test</h1>
-    <input type='button' value='testdb-1' onclick='testdb1()'>
-    <div id='input1'></div>
-    <div id='output1'></div>
+    <input type='button' value='testdb-1' onclick='testdb1()'><br>
+    input1: <span id='input1'></span><br>
+    output1: <span id='output1'></span><br>
+
+    <input type='button' value='testdb-2' onclick=''><br>
+    input1: <span id='input2'></span><br>
+    output1: <span id='output2'></span><br>
 </body>
 </html>
