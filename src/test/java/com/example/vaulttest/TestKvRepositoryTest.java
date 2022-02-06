@@ -39,11 +39,10 @@ public class TestKvRepositoryTest {
         assertNotNull(testKv1);
         assertEquals("bar", testKv1.getPrix());
         /*Get all products, list should only have two*/
-        Iterable<TestKv> testKvs = userRepository.findAll();
         int count = 0;
-        for(TestKv t : testKvs){
-            count++;
-        }
+        Iterable<TestKv> testKvs = userRepository.findAll();
+        for(TestKv kv : testKvs)
+            ++count;
         assertEquals(count, 2);
     }
 }
