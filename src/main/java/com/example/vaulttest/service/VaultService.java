@@ -39,9 +39,12 @@ public class VaultService {
     public String   testDb2(String str) {
         VaultKeyValueOperations op = vaultTemplate.opsForKeyValue("test2", KeyValueBackend.KV_2);
         Map<String, String> in = new HashMap<String, String>();
-        in.put("testKey", str);
-        op.put("test22", in);
-        String  result = (String)op.get("test22").getData().get("testKey");
+        // op.put("test22", in);
+        // in.put("testKey", str);
+        in.put(str, str);
+        op.patch("test22", in);
+        // String  result = (String)op.get("test22").getData().get("testKey");
+        String  result = (String)op.get("test22").getData().get(str);
         System.out.println(result);
         return  result;
     }
