@@ -1,11 +1,15 @@
 package com.example.vaulttest.service;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import com.example.vaulttest.vaultInterface.VaultConfig;
-import com.example.vaulttest.vo.VaultKv;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.vault.core.VaultKeyValueOperations;
 import org.springframework.vault.core.VaultTemplate;
+import org.springframework.vault.core.VaultKeyValueOperationsSupport.KeyValueBackend;
 import org.springframework.vault.support.VaultResponseSupport;
 
 @Component
@@ -16,16 +20,29 @@ public class VaultService {
     @Autowired
     VaultTemplate   vaultTemplate;
 
+    // test KV version 1
     public String   testDb1(String str) {
-        VaultKv vaultKv = new VaultKv("testKey", str);
+        Map<String, String> in = new HashMap<String, String>();
+        in.put("testKey", str);
 
-        vaultTemplate.write("test1/test11", vaultKv);
+        vaultTemplate.write("test1/test11", in);
 
-        VaultResponseSupport<VaultKv> response = vaultTemplate.read("test1/test11", VaultKv.class);
-        System.out.println(response.getData().getKey());
+        String  result = (String)vaultTemplate.read("test1/test11", HashMap.class).getData().get("testKey");
+        System.out.println(result);
 
         // vaultTemplate.delete("secret/myapp");
 
-        return  response.getData().getValue();
+        return  result;
+    }
+
+    // test KV version 2
+    public String   testDb2(String str) {
+        VaultKeyValueOperations op = vaultTemplate.opsForKeyValue("test2", KeyValueBackend.KV_2);
+        Map<String, String> in = new HashMap<String, String>();
+        in.put("testKey", str);
+        op.put("test22", in);
+        String  result = (String)op.get("test22").getData().get("testKey");
+        System.out.println(result);
+        return  result;
     }
 }

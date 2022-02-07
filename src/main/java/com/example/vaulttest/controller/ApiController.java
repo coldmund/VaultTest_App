@@ -20,4 +20,10 @@ public class ApiController {
         System.out.println("input: " + str);
         return  new ResponseEntity<String>(vaultService.testDb1(str), HttpStatus.OK);
     }
+
+    @RequestMapping(value="testdb2")
+    public ResponseEntity<String>   testdb2(@RequestParam("str") String str) {
+        System.out.println("input: " + str);
+        return  new ResponseEntity<String>(vaultService.testDb2(str), HttpStatus.OK);
+    }
 }
