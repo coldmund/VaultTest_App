@@ -15,15 +15,21 @@ public class ApiController {
     @Autowired
     VaultService    vaultService;
 
-    @RequestMapping(value="testdb1")
+    @RequestMapping(value="testkv1")
     public ResponseEntity<String>   testdb1(@RequestParam("str") String str) {
         System.out.println("input: " + str);
-        return  new ResponseEntity<String>(vaultService.testDb1(str), HttpStatus.OK);
+        return  new ResponseEntity<String>(vaultService.testKv1(str), HttpStatus.OK);
     }
 
-    @RequestMapping(value="testdb2")
+    @RequestMapping(value="testkv2")
     public ResponseEntity<String>   testdb2(@RequestParam("str") String str) {
         System.out.println("input: " + str);
-        return  new ResponseEntity<String>(vaultService.testDb2(str), HttpStatus.OK);
+        return  new ResponseEntity<String>(vaultService.testKv2(str), HttpStatus.OK);
+    }
+
+    @RequestMapping(value="testkv3")
+    public ResponseEntity<String>   testdb3(@RequestParam("str") String str) {
+        System.out.println("input: " + str);
+        return  new ResponseEntity<String>(vaultService.testKv3(str), HttpStatus.OK);
     }
 }

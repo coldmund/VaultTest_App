@@ -13,11 +13,11 @@
             return  str;
         }
 
-        var testdb1 = function() {
-            console.log('testdb1');
+        var testkv1 = function() {
+            console.log('testkv1');
             let str = makeString();
             $.ajax({
-                url: 'api/testdb1',
+                url: 'api/testkv1',
                 data: 'str=' + str,
                 beforeSend: function(data) {
                     $('#input1').text(str);
@@ -30,11 +30,11 @@
                 }
             });
         }
-        var testdb2 = function() {
-            console.log('testdb2');
+        var testkv2 = function() {
+            console.log('testkv2');
             let str = makeString();
             $.ajax({
-                url: 'api/testdb2',
+                url: 'api/testkv2',
                 data: 'str=' + str,
                 beforeSend: function(data) {
                     $('#input2').text(str);
@@ -47,17 +47,42 @@
                 }
             });
         }
+        var testkv3 = function() {
+            console.log('testkv3');
+            let str = makeString();
+            $.ajax({
+                url: 'api/testkv3',
+                data: 'str=' + str,
+                beforeSend: function(data) {
+                    $('#input3').text(str);
+                },
+                success: function(data) {
+                    $('#output3').text(data);
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    console.log(textStatus);
+                }
+            });
+        }
     </script>
 </head>
 
 <body>
     <h1>Vault Test</h1>
-    <input type='button' value='testdb-1' onclick='testdb1()'><br>
+
+    <h2>KV1 write/read</h2>
+    <input type='button' value='test' onclick='testkv1()'><br>
     input1: <span id='input1'></span><br>
     output1: <span id='output1'></span><br>
 
-    <input type='button' value='testdb-2' onclick='testdb2()'><br>
+    <h2>KV2 put/get</h2>
+    <input type='button' value='test' onclick='testkv2()'><br>
     input1: <span id='input2'></span><br>
     output1: <span id='output2'></span><br>
+
+    <h2>KV2 patch/get</h2>
+    <input type='button' value='test' onclick='testkv3()'><br>
+    input1: <span id='input3'></span><br>
+    output1: <span id='output3'></span><br>
 </body>
 </html>

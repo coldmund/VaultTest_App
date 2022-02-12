@@ -20,7 +20,7 @@ public class VaultService {
     VaultTemplate   vaultTemplate;
 
     // test KV version 1
-    public String   testDb1(String str) {
+    public String   testKv1(String str) {
         Map<String, String> in = new HashMap<String, String>();
         in.put("testKey", str);
 
@@ -34,16 +34,24 @@ public class VaultService {
         return  result;
     }
 
-    // test KV version 2
-    public String   testDb2(String str) {
+    // test KV version 2 - put/get
+    public String   testKv2(String str) {
         VaultKeyValueOperations op = vaultTemplate.opsForKeyValue("test2", KeyValueBackend.KV_2);
         Map<String, String> in = new HashMap<String, String>();
-        // op.put("test22", in);
-        // in.put("testKey", str);
+        in.put(str, str);
+        op.put("test22", in);
+        String  result = (String)op.get("test22").getData().toString();
+        System.out.println(result);
+        return  result;
+    }
+
+    // test KV version 2 - patch/get
+    public String   testKv3(String str) {
+        VaultKeyValueOperations op = vaultTemplate.opsForKeyValue("test2", KeyValueBackend.KV_2);
+        Map<String, String> in = new HashMap<String, String>();
         in.put(str, str);
         op.patch("test22", in);
-        // String  result = (String)op.get("test22").getData().get("testKey");
-        String  result = (String)op.get("test22").getData().get(str);
+        String  result = (String)op.get("test22").getData().toString();
         System.out.println(result);
         return  result;
     }
