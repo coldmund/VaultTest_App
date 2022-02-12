@@ -22,6 +22,8 @@ public class TestKvRepositoryTest {
 
     @Before
     public void setUp() throws Exception {
+        userRepository.deleteAll();
+
         TestKv testKv1 = new TestKv("foo", "bar");
         TestKv testKv2 = new TestKv("hello", "world");
         assertNull(testKv1.getId());
@@ -38,11 +40,7 @@ public class TestKvRepositoryTest {
         TestKv testKv1 = userRepository.findByCle("foo");
         assertNotNull(testKv1);
         assertEquals("bar", testKv1.getPrix());
-        /*Get all products, list should only have two*/
-        int count = 0;
-        Iterable<TestKv> testKvs = userRepository.findAll();
-        for(TestKv kv : testKvs)
-            ++count;
+        long count = userRepository.findAll().spliterator().getExactSizeIfKnown();
         assertEquals(count, 2);
     }
 }

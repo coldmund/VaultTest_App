@@ -10,7 +10,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.vault.core.VaultKeyValueOperations;
 import org.springframework.vault.core.VaultTemplate;
 import org.springframework.vault.core.VaultKeyValueOperationsSupport.KeyValueBackend;
-import org.springframework.vault.support.VaultResponseSupport;
 
 @Component
 public class VaultService {
