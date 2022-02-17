@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.vault.core.VaultKeyValueOperations;
 import org.springframework.vault.core.VaultTemplate;
+import org.springframework.vault.core.VaultTransitOperations;
 import org.springframework.vault.core.VaultKeyValueOperationsSupport.KeyValueBackend;
 
 @Component
@@ -52,6 +53,20 @@ public class VaultService {
         in.put(str, str);
         op.patch("test22", in);
         String  result = (String)op.get("test22").getData().toString();
+        System.out.println(result);
+        return  result;
+    }
+
+    public String   testEnc(String str) {
+        VaultTransitOperations  op = vaultTemplate.opsForTransit();
+        String  result = op.encrypt("orders", str);
+        System.out.println(result);
+        return  result;
+    }
+
+    public String   testDec(String str) {
+        VaultTransitOperations  op = vaultTemplate.opsForTransit();
+        String  result = op.decrypt("orders", str);
         System.out.println(result);
         return  result;
     }

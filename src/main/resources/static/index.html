@@ -47,17 +47,30 @@
                 }
             });
         }
-        var testkv3 = function() {
-            console.log('testkv3');
+        var testEnc = function() {
+            console.log('testEnc');
             let str = makeString();
             $.ajax({
-                url: 'api/testkv3',
+                url: 'api/testEnc',
                 data: 'str=' + str,
                 beforeSend: function(data) {
-                    $('#input3').text(str);
+                    $('#org').text(str);
                 },
                 success: function(data) {
-                    $('#output3').text(data);
+                    $('#enc').text(data);
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    console.log(textStatus);
+                }
+            });
+        }
+        var testDec = function() {
+            console.log('testDec');
+            $.ajax({
+                url: 'api/testDec',
+                data: 'str=' + $('#enc').text(),
+                success: function(data) {
+                    $('#dec').text(data);
                 },
                 error: function(jqXHR, textStatus, errorThrown) {
                     console.log(textStatus);
@@ -84,5 +97,11 @@
     <input type='button' value='test' onclick='testkv3()'><br>
     input1: <span id='input3'></span><br>
     output1: <span id='output3'></span><br>
+
+    <h2>Encryption/Decryption</h2>
+    <input type='button' value='encrypt' onclick='testEnc()'><input type='button' value='decrypt' onclick='testDec()'><br>
+    org: <span id='org'></span><br>
+    enc: <span id='enc'></span><br>
+    dec: <span id='dec'></span><br>
 </body>
 </html>

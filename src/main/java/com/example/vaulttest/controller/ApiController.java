@@ -32,4 +32,16 @@ public class ApiController {
         System.out.println("input: " + str);
         return  new ResponseEntity<String>(vaultService.testKv3(str), HttpStatus.OK);
     }
+
+    @RequestMapping(value="testEnc")
+    public ResponseEntity<String>   testEnc(@RequestParam("str") String str) {
+        System.out.println("input: " + str);
+        return  new ResponseEntity<String>(vaultService.testEnc(str), HttpStatus.OK);
+    }
+
+    @RequestMapping(value="testDec")
+    public ResponseEntity<String>   testDec(@RequestParam("str") String str) {
+        System.out.println("input: " + str);
+        return  new ResponseEntity<String>(vaultService.testDec(str), HttpStatus.OK);
+    }
 }
