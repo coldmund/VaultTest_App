@@ -18,18 +18,18 @@ import org.springframework.test.context.junit4.SpringRunner;
 @SpringBootTest
 public class TestKvRepositoryTest {
     @Autowired
-    private TestKvRepository userRepository;
+    private TestKvRepository testKvRepository;
 
     @Before
     public void setUp() throws Exception {
-        userRepository.deleteAll();
+        testKvRepository.deleteAll();
 
         TestKv testKv1 = new TestKv("foo", "bar");
         TestKv testKv2 = new TestKv("hello", "world");
         assertNull(testKv1.getId());
         assertNull(testKv2.getId());
-        this.userRepository.save(testKv1);
-        this.userRepository.save(testKv2);
+        this.testKvRepository.save(testKv1);
+        this.testKvRepository.save(testKv2);
         assertNotNull(testKv1.getId());
         assertNotNull(testKv2.getId());
     }
@@ -37,10 +37,10 @@ public class TestKvRepositoryTest {
     @Test
     public void testFetchData(){
         /*Test data retrieval*/
-        TestKv testKv1 = userRepository.findByCle("foo");
+        TestKv testKv1 = testKvRepository.findByCle("foo");
         assertNotNull(testKv1);
         assertEquals("bar", testKv1.getPrix());
-        long count = userRepository.findAll().spliterator().getExactSizeIfKnown();
+        long count = testKvRepository.findAll().spliterator().getExactSizeIfKnown();
         assertEquals(count, 2);
     }
 }
