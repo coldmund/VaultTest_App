@@ -1,8 +1,11 @@
 package com.example.vaulttest.service;
 
+import java.util.Base64;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.example.vaulttest.db.TestKv;
+import com.example.vaulttest.db.TestKvRepository;
 import com.example.vaulttest.vaultInterface.VaultConfig;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +22,9 @@ public class VaultService {
 
     @Autowired
     VaultTemplate   vaultTemplate;
+
+    @Autowired
+    TestKvRepository    testKvRepository;
 
     // test KV version 1
     public String   testKv1(String str) {
@@ -69,5 +75,11 @@ public class VaultService {
         String  result = op.decrypt("orders", str);
         System.out.println(result);
         return  result;
+    }
+
+    public String   testDb(String str) {
+        TestKv  testKv = new TestKv(str, Base64.getEncoder().encodeToString(str.getBytes()));
+        testKvRepository.save(testKv);
+        return  testKvRepository.findByCle(str).getPrix();
     }
 }

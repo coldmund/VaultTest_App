@@ -44,4 +44,10 @@ public class ApiController {
         System.out.println("input: " + str);
         return  new ResponseEntity<String>(vaultService.testDec(str), HttpStatus.OK);
     }
+ 
+    @RequestMapping(value="testDb")
+    public ResponseEntity<String>   testDb(@RequestParam("str") String str) {
+        System.out.println("input: " + str);
+        return  new ResponseEntity<String>(vaultService.testDb(str), HttpStatus.OK);
+    }
 }

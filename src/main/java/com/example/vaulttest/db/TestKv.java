@@ -7,29 +7,25 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@Data
 @Entity
-@Table(name = "TestTable")
-@Getter
-@ToString
+@Table(name = "test_table")
+@AllArgsConstructor
+@NoArgsConstructor
 public class TestKv {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-    @Setter
+    @Column(nullable = false)
     private String cle;
 
-    @Setter
-    @Column(columnDefinition = "TEXT")
+    @Column(nullable = false, columnDefinition = "TEXT")
     private String prix;
-
-    public  TestKv() {
-
-    }
 
     public  TestKv(String cle, String prix) {
         this.cle = cle;

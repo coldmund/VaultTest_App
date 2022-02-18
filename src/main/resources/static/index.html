@@ -94,7 +94,24 @@
                 }
             });
         }
-    </script>
+        var testDb = function() {
+            console.log('testDb');
+            let str = makeString();
+            $.ajax({
+                url: 'api/testDb',
+                data: 'str=' + str,
+                beforeSend: function(data) {
+                    $('#input4').text(str);
+                },
+                success: function(data) {
+                    $('#output4').text(data);
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    console.log(textStatus);
+                }
+            });
+        }
+   </script>
 </head>
 
 <body>
@@ -107,18 +124,23 @@
 
     <h2>KV2 put/get</h2>
     <input type='button' value='test' onclick='testkv2()'><br>
-    input1: <span id='input2'></span><br>
-    output1: <span id='output2'></span><br>
+    input2: <span id='input2'></span><br>
+    output2: <span id='output2'></span><br>
 
     <h2>KV2 patch/get</h2>
     <input type='button' value='test' onclick='testkv3()'><br>
-    input1: <span id='input3'></span><br>
-    output1: <span id='output3'></span><br>
+    input3: <span id='input3'></span><br>
+    output3: <span id='output3'></span><br>
 
     <h2>Encryption/Decryption</h2>
     <input type='button' value='encrypt' onclick='testEnc()'><input type='button' value='decrypt' onclick='testDec()'><br>
     org: <span id='org'></span><br>
     enc: <span id='enc'></span><br>
     dec: <span id='dec'></span><br>
+
+    <h2>DB credential</h2>
+    <input type='button' value='test' onclick='testDb()'><br>
+    input: <span id='input4'></span><br>
+    output: <span id='output4'></span><br>
 </body>
 </html>
