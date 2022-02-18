@@ -47,6 +47,23 @@
                 }
             });
         }
+        var testkv3 = function() {
+            console.log('testkv3');
+            let str = makeString();
+            $.ajax({
+                url: 'api/testkv3',
+                data: 'str=' + str,
+                beforeSend: function(data) {
+                    $('#input3').text(str);
+                },
+                success: function(data) {
+                    $('#output3').text(data);
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    console.log(textStatus);
+                }
+            });
+        }
         var testEnc = function() {
             console.log('testEnc');
             let str = makeString();
@@ -65,10 +82,10 @@
             });
         }
         var testDec = function() {
-            console.log('testDec');
+            console.log('testDec: ' + $('#enc').text());
             $.ajax({
                 url: 'api/testDec',
-                data: 'str=' + $('#enc').text(),
+                data: 'str=' + encodeURIComponent($('#enc').text()),
                 success: function(data) {
                     $('#dec').text(data);
                 },
