@@ -14,6 +14,7 @@ import org.springframework.vault.core.VaultKeyValueOperations;
 import org.springframework.vault.core.VaultTemplate;
 import org.springframework.vault.core.VaultTransitOperations;
 import org.springframework.vault.core.VaultKeyValueOperationsSupport.KeyValueBackend;
+import org.springframework.vault.support.VaultResponse;
 
 @Component
 public class VaultService {
@@ -79,6 +80,12 @@ public class VaultService {
 
     public String   testDb(String str) {
         TestKv  testKv = new TestKv(str, Base64.getEncoder().encodeToString(str.getBytes()));
+        // get DB credential
+        VaultResponse   response = vaultTemplate.read("database/creds/vaultrole");
+        String  username = (String)response.getData().get("username");
+        String  password = (String)response.getData().get("password");
+        System.out.println("username: " + username + ", password: " + password);
+
         testKvRepository.save(testKv);
         return  testKvRepository.findByCle(str).getPrix();
     }
